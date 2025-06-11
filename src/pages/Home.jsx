@@ -21,8 +21,6 @@ const Home = () => {
     <div className=' pt-12'>
       <Hero />
       <section className="px-4 py-8">
-        <h2 className="text-2xl font-semibold mb-4">Featured Products</h2>
-        
         <div className="container mx-auto p-6">
             <h1 className="text-3xl font-bold mb-6 text-center">
                 {searchTerm ? `Search Results for "${searchTerm}"` : "Featured Products"}
