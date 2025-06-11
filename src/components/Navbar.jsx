@@ -38,7 +38,9 @@ const Navbar = () => {
             <SearchBar />
           </div>
           
-          <Link to="/cartPage" className="hover:underline flex">
+          {currentUser && (
+            <>
+            <Link to="/cartPage" className="hover:underline flex">
             <div className='relative'>
               <ShoppingCart className='w-5' />
               {totalQuantity > 0 && (
@@ -58,6 +60,8 @@ const Navbar = () => {
                 </span>
             )}
           </Link>
+          </>
+        )}
           {currentUser && (
             <>
               <span className='text-xs md:text'>Hi, {userData?.name || currentUser.email}</span>
