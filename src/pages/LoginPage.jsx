@@ -4,6 +4,7 @@ import { auth, db } from "../firebase/firebaseConfig";
 
 import { useNavigate, Link } from "react-router";
 import { useState } from "react";
+import CartImage from "../assets/cartImage.png"
 
 const LoginPage = () => {
 
@@ -43,9 +44,11 @@ const LoginPage = () => {
         
     }
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <form onSubmit={handleLogin} className="bg-white p-8 rounded-lg shadow-md min-w-[320px] w-full max-w-sm">
-                <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <div className="flex flex-col md:flex-row justify-between items-center min-h-screen bg-gray-100 pt-36">
+            <img src={CartImage} alt=""  className="md:w-148 md:h-136 mr-3 md:mr-auto"/>
+            <form onSubmit={handleLogin} className="bg-white md:mr-24 p-8 rounded-lg shadow-md min-w-[320px] w-full max-w-sm">
+                <h2 className="text-2xl tracking-wide font-semibold text-gray-900 text-start mb-2  ">Login to Vision Tech</h2>
+                <h3 className="font-medium text-sm text-gray-600 font-serif text-start mb-5">Enter Your Details Below</h3>
                 {error && <p className="text-red-500">Please Input your details to login</p>}
                 <div className="mb-4">
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Email</label>

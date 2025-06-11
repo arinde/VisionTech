@@ -1,43 +1,126 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-// import { db } from '../services/firebase';
-// import { doc, getDoc } from 'firebase/firestore';
+import { useParams } from 'react-router-dom'; // Import useParams to get URL parameters
+import { doc, getDoc } from 'firebase/firestore'; // Import Firestore functions
+import { db } from '../firebase/firebaseConfig'; // Adjust path if needed
+import { useWishlist } from '../contexts/WishListContext';
+import Spinner from "../components/Spinner";
+import { useCart } from '../contexts/CartContext'; // Import useCart for Add to Cart functionality
+import toast from 'react-hot-toast';
+import { Heart } from 'lucide-react';
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const [product, setProduct] = useState(null);
+    const { id } = useParams(); // Get the product ID from the URL (e.g., /product/abc123def)
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const { addToWishlist, wishlistItems } = useWishlist();
 
-  useEffect(() => {
-    // Replace with real Firestore fetch
-    // const fetchProduct = async () => {
-    //   const docRef = doc(db, 'products', id);
-    //   const docSnap = await getDoc(docRef);
-    //   if (docSnap.exists()) {
-    //     setProduct({ id: docSnap.id, ...docSnap.data() });
-    //   }
-    // };
-    // fetchProduct();
+    const { addToCart } = useCart(); // Access addToCart from your CartContext
 
-    // Dummy data for scaffold
-    setProduct({
-      name: 'Smartphone X100',
-      price: 500,
-      imageUrl: '/images/sample-phone.jpg',
-      description: 'Flagship phone with awesome camera and performance.',
-    });
-  }, [id]);
+    useEffect(() => {
+        const fetchProduct = async () => {
+            if (!id) { // If no ID is present in the URL, something is wrong
+                setError("Product ID is missing from URL.");
+                setLoading(false);
+                return;
+            }
 
-  if (!product) return <p className="p-4">Loading...</p>;
+            try {
+                setLoading(true);
+                setError(null); // Clear previous errors
 
-  return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <img src={product.imageUrl} alt={product.name} className="w-full h-64 object-cover rounded mb-4" />
-      <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-      <p className="text-lg text-gray-700 mb-4">${product.price}</p>
-      <p className="text-gray-600">{product.description}</p>
-      <button className="mt-6 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Add to Cart</button>
-    </div>
-  );
+                const productRef = doc(db, 'products', id); // Reference to the specific document
+                const productSnap = await getDoc(productRef); // Fetch the document
+
+                if (productSnap.exists()) {
+                    setProduct({ id: productSnap.id, ...productSnap.data() });
+                } else {
+                    setError("Product not found.");
+                }
+            } catch (err) {
+                console.error("Error fetching product details:", err);
+                setError("Failed to load product details. Please try again.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProduct();
+    }, [id]); // Re-run effect if the product ID in the URL changes
+
+    const handleAddToCart = () => {
+        if (product) {
+            addToCart(product);
+            if (showToast) {
+               showToast(`${product.name} added to cart!`);
+             }
+        }
+    };
+
+    const handleAddToWishlist = () => {
+        if (product) {
+            addToWishlist(product);
+            toast.success('added to Wishlist')
+        }
+    };
+
+    const isInWishlist = wishlistItems.some(item => item.id === product?.id);
+
+    if (loading) {
+        return <Spinner message="Loading product details..." />;
+    }
+
+    if (error) {
+        return <div className="text-center p-8 text-red-500 text-xl">{error}</div>;
+    }
+
+    if (!product) {
+        // This case should ideally be caught by 'error' if ID is invalid,
+        // or by 'loading' if still fetching. But as a fallback.
+        return <div className="text-center p-8 text-gray-500">Product data unavailable.</div>;
+    }
+
+    return (
+        <div className="md:max-w-xl mx-auto  md:px-4 md:py-8 bg-white shadow-lg rounded-lg">
+            <div className="flex flex-col items-center justify-center  md:flex-row md:gap-8">
+                <div className="md:w-1/2 ">
+                    <img
+                        src={product.imageUrl || 'https://via.placeholder.com/400x400?text=No+Image'}
+                        alt={product.name}
+                        className="w-full h-80 object-contain rounded-lg shadow-md" // object-contain for full image visibility
+                    />
+                </div>
+                <div className="md:w-1/2">
+                    <h1 className="text-4xl font-extrabold text-gray-900 mb-3">{product.name}</h1>
+                    {product.category && (
+                        <p className="text-md text-gray-500 mb-2">Category: {product.category}</p>
+                    )}
+                    <p className="text-3xl font-bold text-green-600 mb-4">
+                        Price: ₦{product.price ? product.price.toLocaleString() : 'N/A'}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed mb-6">{product.description}</p>
+
+                    <button
+                        className="mt-6 bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        onClick={handleAddToCart}
+                    >
+                        Add to Cart
+                    </button>
+                    <div className=' mt-4 rounded-full  w-fit p-2 hover:bg-gray-200 transition ease-in-out bg-gray-100' onClick={handleAddToWishlist} 
+                    aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}>
+                      <Heart
+                          size={24}
+                          fill={isInWishlist ? "currentColor" : "none"}
+                          strokeWidth={isInWishlist ? 0 : 2}
+                          disabled={isInWishlist}
+                          className={`text-green-300`}
+                          
+                      />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default ProductDetail;

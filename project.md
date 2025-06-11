@@ -187,8 +187,8 @@ my-ecommerce-gadget-app/
     * Develop `CheckoutPage.jsx` with forms for shipping information.
     * Upon "payment" success, create a new document in the `orders` collection in Firestore.
     * Clear the cart.
-9.  **Order History:**
-    * Create `OrderHistoryPage.jsx` that fetches orders specific to the authenticated user from Firestore.
+9.  **Order History:**Create `OrderHistoryPage.jsx` that fetches orders specific to the authenticated user from Firestore.
+    * 
 10. **Styling with Tailwind CSS:**
     * Apply Tailwind utility classes throughout your React components to build the UI.
     * Ensure responsiveness for mobile, tablet, and desktop views.

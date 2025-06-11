@@ -5,6 +5,7 @@ import { auth, db } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
+
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
@@ -12,7 +13,6 @@ export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
-    
 
     useEffect(() => {
         const unsuscribe = onAuthStateChanged(auth, async (user) => {
@@ -43,6 +43,7 @@ export const AuthProvider = ({children}) => {
     const logout = async () =>{
         try {
             await signOut(auth);
+
         } catch (err) {
             console.error("logout error", user)
         }

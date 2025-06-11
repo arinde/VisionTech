@@ -4,6 +4,8 @@ import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import CartImage from "../assets/cartImage.png"
+
 
 const SignUpPage = () => {
     const [formData, setFormData] = useState({
@@ -43,7 +45,7 @@ const SignUpPage = () => {
             console.log("user created successfully", user);
             setSuccessMessage("Signup successful! Redirecting...");
             setTimeout(() => {
-                navigate('/login');
+                navigate('/home');
             }, 2000)
             
 
@@ -64,15 +66,16 @@ const SignUpPage = () => {
             });
 
             console.log("signed up with Google successfully", user);
-             navigate('/login');
+             navigate('/home');
         } catch (err) {
             setError(err.message);
         }
     };
 
     return(
-        <div className="flex items-center justify-center min-h-screen bg-gray-100 mt-9">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <div className="flex flex-col md:flex-row items-center justify-center md:justify-between min-h-screen bg-gray-100 pb-10  pt-36 ">
+            <img src={CartImage} alt=""  className="md:w-148 md:h-136 mr-3 md:mr-auto"/>
+            <div className="bg-gray-100 px-12 py-6 rounded-lg shadow-md w-full max-w-md md:mr-24 ">
                 <h2 className="text-2xl font-bold mb-6 text-center">Create an account</h2>
                 {error && <p className="text-red-500">{error}</p>}
                 
