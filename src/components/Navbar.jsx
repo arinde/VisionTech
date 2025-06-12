@@ -30,13 +30,15 @@ const Navbar = () => {
           <Link to="/" className="hover:underline">Home</Link>
           <Link to="/contact" className="hover:underline">Contact</Link>
           <Link to="/blog" className='hover:underline'>Blog</Link>
-          {!currentUser && <Link to="/login">SignIn</Link>}
+          
         </div>
 
-        <div className='flex items-center md:space-x-2 space-x-1'>
+        <div className='flex items-center md:space-x-2 space-x-3'>
           <div className='hidden md:flex'>
             <SearchBar />
           </div>
+
+          {!currentUser && <Link to="/login" className='hidden md:flex py-1 px-3 bg-blue-600 text-center border-0 shadow-md rounded-2xl'>SignIn</Link>}
           
           {currentUser && (
             <>
@@ -65,7 +67,7 @@ const Navbar = () => {
           {currentUser && (
             <>
               <span className='text-xs md:text'>Hi, {userData?.name || currentUser.email}</span>
-              <Link to="/login"><button onClick={logout} className="bg-red-600 px-2 py-1 rounded text-white  hidden md:flex">
+              <Link to="/login"><button onClick={logout} className="py-1 px-3 bg-red-600 text-center border-0 shadow-md rounded-2xl  hidden md:flex">
                 Logout
               </button>
               </Link>
@@ -115,12 +117,15 @@ const Navbar = () => {
             
           {currentUser && (
             <>
-              <Link to="/login"><button onClick={logout} className="bg-red-600 w-40 rounded-lg py-1.5 px-2 text-white">
+              <Link to="/login" onClick={toggleMenu}><button onClick={logout} className="bg-red-600 w-40 rounded-2xl shadow-md py-1.5 px-2 text-white">
                 Logout
               </button>
               </Link>
             </>
           )}
+          <div onClick={toggleMenu}>
+            {!currentUser && <Link to="/login" className=' flex py-1 px-16 bg-blue-600 text-center border-0 shadow-md rounded-2xl'>SignIn</Link>}
+          </div>
           </div>
         </div>
       )}

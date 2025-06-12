@@ -1,13 +1,13 @@
 import React from 'react';
-import { useWishlist } from '../contexts/WishListContext'; // Import useWishlist
-import { useCart } from '../contexts/CartContext'; // To potentially move items to cart
+import { useWishlist } from '../contexts/WishListContext'; 
+import { useCart } from '../contexts/CartContext'; 
 import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 
 const WishlistPage = () => {
-    // Destructure properties from your WishlistContext
+   
     const { wishlistItems, wishlistLoading, wishlistError, removeFromWishlist } = useWishlist();
-    // Destructure addToCart from your CartContext to enable "Move to Cart" functionality
+    
     const { addToCart } = useCart();
 
     // 1. Handle Loading State
@@ -23,11 +23,11 @@ const WishlistPage = () => {
     // 3. Render the Wishlist content
     return (
         <div className="container mx-auto p-6">
-            <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Your Wishlist</h1>
+            <h1 className="text-3xl font-bold md:mb-6 mb-0 text-center text-gray-800">Your Wishlist</h1>
 
             {/* 4. Handle Empty Wishlist State */}
             {wishlistItems.length === 0 ? (
-                <div className="text-center p-8 text-gray-600 text-lg">
+                <div className="text-center md:p-8 p-2 text-gray-600 text-lg">
                     <p>Your wishlist is empty.</p>
                     <p>Start Browse products and add your favorites!</p>
                     <Link to="/" className="text-blue-600 hover:underline mt-4 inline-block">
@@ -35,7 +35,7 @@ const WishlistPage = () => {
                     </Link>
                 </div>
             ) : (
-                // 5. Display Wishlist Items in a Grid
+               
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {wishlistItems.map(product => (
                         <div key={product.id} className="bg-white rounded-lg shadow-md p-4 flex flex-col">

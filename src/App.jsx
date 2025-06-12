@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/checkout" element={<ProtectedRoute><div className='pt-24'><CheckoutPage /></div></ProtectedRoute>} />
           <Route path="/success" element={<ProtectedRoute><SuccessPage /></ProtectedRoute>} />
           <Route path="/history" element={<ProtectedRoute><div className='pt-24'><OrderHistoryPage /></div></ProtectedRoute>} />
-          <Route path="/wishlist" element={<ProtectedRoute> <div className='md:pt-24 pt-6'><WishlistPage /></div> </ProtectedRoute>} />
+          <Route path="/wishlist" element={<ProtectedRoute> <div className='md:pt-24 pt-20'><WishlistPage /></div> </ProtectedRoute>} />
 
         </Routes>
         <Footer />

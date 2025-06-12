@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
     return (
         <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col w-full h-full"> {/* Added w-full h-full */}
             {/* Product Image - Link to product detail page */}
-            <Link to={`/product/${product.id}`} className="block relative w-full h-48 overflow-hidden">
+            <div className="block relative w-full h-48 overflow-hidden">
                 <img
                     src={product.imageUrl || 'https://via.placeholder.com/200x200?text=No+Image'} // Fallback image
                     alt={product.name}
@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
                         strokeWidth={isInWishlist ? 0 : 2} // No stroke if filled
                     />
                 </button>
-            </Link>
+            </div>
 
             {/* Product Details */}
             <div className="p-4 flex-grow flex flex-col justify-between"> {/* flex-grow and flex flex-col justify-between are key here */}

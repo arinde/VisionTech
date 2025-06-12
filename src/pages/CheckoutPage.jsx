@@ -33,7 +33,7 @@ const CheckoutPage = () => {
   // Calculate totals
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shippingCost = 10.00; // Example fixed shipping cost
-  const taxRate = 0.05; // Example 5% tax rate
+  const taxRate = 0.03; // Example 5% tax rate
   const taxAmount = subtotal * taxRate;
   const totalAmount = subtotal + shippingCost + taxAmount;
 
@@ -85,7 +85,7 @@ const CheckoutPage = () => {
               <div style="font-size: 14px; color: #888; padding-top: 4px;">QTY: ${item.quantity}</div>
             </div>
           </td>
-          <td style="padding: 10px 0; text-align: right; font-weight: bold;">$${item.price.toFixed(2)}</td>
+          <td style="padding: 10px 0; text-align: right; font-weight: bold;">$${item.price.toFixed(1)}</td>
         </tr>
       `).join('');
 
@@ -142,7 +142,7 @@ const CheckoutPage = () => {
                       <h3 className="font-semibold text-lg text-gray-900">{item.name}</h3>
                       <p className="text-gray-600 text-sm">Quantity: {item.quantity}</p>
                     </div>
-                    <p className="font-bold text-gray-900 text-lg">${(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="font-bold text-gray-900 text-lg">${(item.price * item.quantity).toFixed(0)}</p>
                   </div>
                 ))
               )}
@@ -152,15 +152,15 @@ const CheckoutPage = () => {
           <div className="mt-8 pt-6 border-t border-gray-200 space-y-3">
             <div className="flex justify-between text-gray-700">
               <span>Subtotal:</span>
-              <span className="font-medium">${subtotal.toFixed(2)}</span>
+              <span className="font-medium">${subtotal.toFixed(1)}</span>
             </div>
             <div className="flex justify-between text-gray-700">
               <span>Shipping:</span>
-              <span className="font-medium">${shippingCost.toFixed(2)}</span>
+              <span className="font-medium">$0</span>
             </div>
             <div className="flex justify-between text-gray-700">
               <span>Tax ({taxRate * 100}%):</span>
-              <span className="font-medium">${taxAmount.toFixed(2)}</span>
+              <span className="font-medium">${taxAmount.toFixed(1)}</span>
             </div>
             <div className="flex justify-between font-bold text-xl text-gray-900 pt-3 border-t border-gray-300 mt-3">
               <span>Order Total:</span>

@@ -47,8 +47,8 @@ export default function Featured() {
 
     // Clear the interval when the component unmounts to prevent memory leaks
     return () => clearInterval(timer);
-  }, []); // Empty dependency array means this effect runs once on mount
-
+  }, []); 
+  
   const timerComponents = [];
 
   // Define the order of the timer intervals as seen in your image
@@ -79,55 +79,46 @@ export default function Featured() {
 
 
   return (
-    // Main section container: full height, dark background, centered content
+   
     <section className="bg-black text-white min-h-[calc(100vh-64px)] flex items-center justify-center
-                        py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden mx-10 my-5">
-      {/* Subtle radial gradient in the background for depth, like in the image */}
+                        py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden mx-0 my-5">
+      
       <div className="absolute inset-0 opacity-50 pointer-events-none"
            style={{ background: 'radial-gradient(circle at 80% 50%, rgba(20, 20, 20, 0.5) 0%, rgba(0, 0, 0, 1) 70%)' }}></div>
 
-      {/* Content wrapper: centers content, handles responsive stacking */}
+      
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between
-                      gap-12 w-full z-10"> {/* z-10 ensures content is above the background gradient */}
+                      gap-12 w-full z-10 px-6"> 
 
         {/* Left Content Area (Text, Countdown, Button) */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left p-4 sm:p-0">
-          {/* "Categories" label */}
-          <span className="text-emerald-400 text-lg font-semibold mb-3 tracking-wide uppercase">Categories</span>
-
-          {/* "JOG !" text */}
-          <p className="text-white text-base sm:text-xl font-bold mb-2">JOG !</p>
-
-          {/* Main Heading */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-8">
-            Enhance Your <br className="hidden sm:inline" /> Music Experience
-          </h1>
-
-          {/* Countdown Timer Display */}
-          <div className="flex space-x-3 sm:space-x-4 mb-12">
-            {/* Render timer components if time left, otherwise show "Countdown Finished!" */}
-            {timerComponents.length > 0 ? timerComponents : (
-              <span className="text-xl text-gray-400">Countdown Finished!</span>
-            )}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left p-4 sm:p-0">
+            
+            <span className="text-emerald-400 text-lg font-semibold mb-3 tracking-wide uppercase">Categories</span>
+            <p className="text-white text-base sm:text-xl font-bold mb-2">JOG !</p>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight mb-8">
+              Enhance Your <br className="hidden sm:inline" /> Music Experience
+            </h1>
+            <div className="flex space-x-3 sm:space-x-4 mb-12">
+              
+              {timerComponents.length > 0 ? timerComponents : (
+                <span className="text-xl text-gray-400">Countdown Finished!</span>
+              )}
+            </div>
+            <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 px-12 rounded-full
+                              text-xl shadow-lg transition-colors duration-300 transform hover:scale-105
+                              focus:outline-none focus:ring-4 focus:ring-emerald-500 focus:ring-opacity-50">
+              Buy Now!
+            </button>
           </div>
 
-          {/* "Buy Now!" Button */}
-          <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 px-12 rounded-full
-                             text-xl shadow-lg transition-colors duration-300 transform hover:scale-105
-                             focus:outline-none focus:ring-4 focus:ring-emerald-500 focus:ring-opacity-50">
-            Buy Now!
-          </button>
-        </div>
-
-        {/* Right Image Area */}
-        <div className="relative w-full md:w-1/2 flex justify-center items-center mt-8 md:mt-0 p-4">
-          {/* Replace this with your actual JBL Boombox 2 image URL */}
-          <img
-            src={JBL} // Assuming you place 'Frame 600.png' in your public folder
-            alt="JBL Boombox 2 Speaker"
-            className="w-full max-w-md md:max-w-xl object-contain drop-shadow-2xl" // Added drop-shadow for effect
-          />
-        </div>
+          {/* Right Image Area */}
+          <div className="relative w-full md:w-1/2 flex justify-center items-center mt-8 md:mt-0 p-4">
+            <img
+              src={JBL} 
+              alt="JBL Boombox 2 Speaker"
+              className="w-full max-w-md md:max-w-xl object-contain drop-shadow-2xl" // Added drop-shadow for effect
+            />
+          </div>
       </div>
     </section>
   );

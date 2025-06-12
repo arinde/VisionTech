@@ -81,24 +81,24 @@ const ProductDetail = () => {
     }
 
     return (
-        <div className="md:max-w-xl mx-auto  md:px-4 md:py-8 bg-white shadow-lg rounded-lg">
-            <div className="flex flex-col items-center justify-center  md:flex-row md:gap-8">
+            <div className="flex flex-col items-center justify-center mt-2 md:flex-row md:gap-8">
+                
                 <div className="md:w-1/2 ">
                     <img
                         src={product.imageUrl || 'https://via.placeholder.com/400x400?text=No+Image'}
                         alt={product.name}
-                        className="w-full h-80 object-contain rounded-lg shadow-md" // object-contain for full image visibility
+                        className=''
                     />
                 </div>
                 <div className="md:w-1/2">
-                    <h1 className="text-4xl font-extrabold text-gray-900 mb-3">{product.name}</h1>
+                    <h1 className="md:text-4xl text-2xl font-extrabold text-gray-900 mb-1 md:mb-3">{product.name}</h1>
                     {product.category && (
-                        <p className="text-md text-gray-500 mb-2">Category: {product.category}</p>
+                        <p className="text-md text-gray-500 mb-0 md:mb-2">Category: {product.category}</p>
                     )}
-                    <p className="text-3xl font-bold text-green-600 mb-4">
+                    <p className=" text-xl md:text-3xl font-bold text-green-600 md:mb-4 mb-1">
                         Price: ₦{product.price ? product.price.toLocaleString() : 'N/A'}
                     </p>
-                    <p className="text-gray-700 leading-relaxed mb-6">{product.description}</p>
+                    <p className="text-gray-700 leading-relaxed mb-1 md:mb-6">{product.description}</p>
 
                     <button
                         className="mt-6 bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
@@ -119,7 +119,6 @@ const ProductDetail = () => {
                     </div>
                 </div>
             </div>
-        </div>
     );
 };
 
